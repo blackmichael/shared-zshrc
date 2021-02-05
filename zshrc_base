@@ -116,7 +116,7 @@ alias xmlpretty='xml fo | pygmentize -l xml'
 
 ## VERSION CONTROL ############################################################################################################
 
-alias gs="git st"
+alias gs="git status"
 alias grh="git reset --hard"
 alias grs="git reset --soft"
 
@@ -155,9 +155,6 @@ function jdk() {
 function removeFromPath() {
   export PATH=$(echo $PATH | sed -E -e "s;:$1;;" -e "s;$1:?;;")
 }
-
-# jdk 1.8
-jdk 11
 
 function find_file_up() {
   ls (../)#"$1"(:a)
@@ -320,7 +317,7 @@ if [[ -d "$FZF_SHELL" ]]; then
   }
 
   zle     -N   cd_home_fzf
-  bindkey '\ef' cd_home_fzf  # meta-f (opt)
+  # bindkey '\ef' cd_home_fzf  # meta-f (opt)
 
   export NOTES_DIR="$HOME/Dropbox/notes" # override in nonshared-zshrc/zshrc to get a different location
 
@@ -371,3 +368,12 @@ else
   echo "antibody?"
   echo "brew install getantibody/tap/antibody"
 fi
+
+## Autojump
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+## Key navigation for iterm2
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down

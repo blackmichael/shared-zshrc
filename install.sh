@@ -3,17 +3,23 @@
 set -euo pipefail
 
 if [ -e ~/.zshrc ]; then
-  echo "You have an existing ~/.zshrc file, please remove it and rerun install.sh to create one that'll load from $ZSHDIR"
-  exit 1
-else 
+  read -p "You have an existing ~/.zshrc file, would you like to replace it? " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]
+  then
+      exit 1
+  else
+      echo "Replacing existing ~/.zshrc file..."
+  fi
+fi
 
-  SCRIPTDIR=$(cd "$(dirname "$0")" && pwd)
-  export ZSHDIR=$SCRIPTDIR
+SCRIPTDIR=$(cd "$(dirname "$0")" && pwd)
+export ZSHDIR=$SCRIPTDIR
 
-  mkdir -p "$ZSHDIR/nonshared-zshrc"
-  touch "$ZSHDIR/nonshared-zshrc/zshrc"
+mkdir -p "$ZSHDIR/nonshared-zshrc"
+touch "$ZSHDIR/nonshared-zshrc/zshrc"
 
-  INSTALL_TO=~/.zshrc
+INSTALL_TO=~/.zshrc
 
 cat <<EOF > $INSTALL_TO
 export ZSHDIR=$SCRIPTDIR
@@ -23,6 +29,8 @@ export HOSTNAME=\$(hostname)
 source \$ZSHDIR/zshrc_base
 
 source \$ZSHDIR/zshrc_options
+
+source \$ZSHDIR/aliases
 
 # echo "sourcing general nonshared-zshrc/zshrc"
 source \$ZSHDIR/nonshared-zshrc/zshrc
@@ -40,9 +48,9 @@ fi
 
 EOF
 
-  echo "Done creating ~/.zshrc file that expects zsh script in $SCRIPTDIR"
-  echo ""
-  echo "You likely want to run these now and then restart your shell:"
-  echo "brew install fzf ripgrep bat fd findutils"
-  echo "brew install getantibody/tap/antibody"
-fi
+echo "Done creating ~/.zshrc file that expects zsh script in $SCRIPTDIR"
+echo ""
+echo "You likely want to run these now and then restart your shell:"
+echo "brew install fzf ripgrep bat fd findutils"
+echo "brew install getantibody/tap/antibody"
+
