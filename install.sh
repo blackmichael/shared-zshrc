@@ -50,6 +50,9 @@ EOF
 echo "Done creating ~/.zshrc file that expects zsh script in $SCRIPTDIR"
 echo ""
 echo "You likely want to run these now and then restart your shell:"
-echo "brew install fzf ripgrep bat fd findutils"
+echo "brew install fzf ripgrep bat fd findutils autojump"
 echo "brew install getantibody/tap/antibody"
 
+echo "Additionally, you'll want to run ./vim_setup.sh to get vim configured."
+
+echo "Also, to fix iTerm2 option arrow navigation: https://danicfilip.com/2018/how_to_use_alt_arrows_to_navigate_between_words_in_iterm2/"

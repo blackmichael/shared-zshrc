@@ -2,3 +2,4 @@ alias l="ls -alhH"
 take() {
   mkdir $1 && cd $1
 }
+alias reload="source ~/.zshrc"
